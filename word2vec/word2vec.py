@@ -1,5 +1,5 @@
 """
-word2vec tutorial notes
+Word2Vec tutorial notes
 source: https://towardsdatascience.com/learn-word2vec-by-implementing-it-in-tensorflow-45641adaf2ac
 """
 
@@ -108,7 +108,6 @@ def find_closest(word_index, vectors):
 print(int2word[find_closest(word2int['king'], vectors)])
 print(int2word[find_closest(word2int['queen'], vectors)])
 print(int2word[find_closest(word2int['royal'], vectors)])
-
 
 
 # if __name__ == '__main__':
