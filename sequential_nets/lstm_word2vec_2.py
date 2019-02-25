@@ -2,6 +2,7 @@
 LSTM tutorial  - using LSTM with pre-trained word2vec.
 source: http://www.brightideasinanalytics.com/pretrained-word-vectors-example/
 source: http://www.brightideasinanalytics.com/rnn-pretrained-word-vectors/
+glove source: https://www.kaggle.com/rtatman/glove-global-vectors-for-word-representation#glove.6B.50d.txt
 """
 
 #Note: word embeddings === word vectors
