@@ -12,6 +12,10 @@ from sklearn.metrics import (
     f1_score, accuracy_score, recall_score, precision_score
 )
 
+from datetime import datetime
+now = datetime.utcnow().strftime("%Y%m%d%H%MHS")
+root_logdir = "tf_logs"
+logdir = "{}/run-{}/".format(root_logdir, now)
 
 data = pd.read_csv('creditcard.csv', skiprows=[0], header=None)
 
@@ -39,11 +43,15 @@ def recurrent_neural_network_model():
     }
 
     x = tf.split(xplaceholder, n_features, 1)
-    print(x)
+    # print(x)
 
     lstm_cell = rnn.BasicLSTMCell(n_units)
 
     outputs, states = rnn.static_rnn(lstm_cell, x, dtype=tf.float32)
+    #outputs: contains all outputs for each time step
+    #states: contains all state for each time step
+    print("Outputs: ", len(outputs))
+    # print("Last output: ", outputs[-1])
 
     output = tf.matmul(outputs[-1], layer['weights']) + layer['bias']
 
@@ -60,9 +68,12 @@ def train_neural_network():
 
     optimizer = tf.train.AdamOptimizer().minimize(cost)
 
+    file_writer = tf.summary.FileWriter(logdir, tf.get_default_graph())
+
     with tf.Session() as sess: 
         tf.global_variables_initializer().run()
         tf.local_variables_initializer().run()
+
 
         for epoch in range(epochs):
             epoch_loss = 0
@@ -99,5 +110,7 @@ def train_neural_network():
                 print("Accuracy Score: ", accuracy)
                 print("Recall: ", recall)
                 print("Precision: ", precision)
+        
+        file_writer.close()
 
 train_neural_network()
