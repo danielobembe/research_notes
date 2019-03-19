@@ -4,7 +4,7 @@ import os, sys
 
 DATA_SIZE = 100
 SAVE_PATH = './save'
-EPOCHS = 1000
+EPOCHS = 10
 LEARNING_RATE = 0.01
 MODEL_NAME = 'test'
 
@@ -29,6 +29,25 @@ train_step = tf.train.AdamOptimizer(LEARNING_RATE).minimize(loss)
 checkpoint = tf.train.latest_checkpoint(SAVE_PATH)
 should_train = (checkpoint == None)
 
+with tf.Session() as sess:
+    sess.run(tf.global_variables_initializer())
+    if should_train:
+        print("Training")
+        saver = tf.train.Saver()
+        for epoch in range(EPOCHS):
+            _, curr_loss = sess.run([train_step, loss], feed_dict={x:data[0], y:data[1]})
+            print('EPOCH = {}, LOSS = {:0.4f}'.format(epoch, curr_loss))
+        path = saver.save(sess, SAVE_PATH +'/' + MODEL_NAME + '.ckpt')
+        print("Model saved at {}".format(path))
+    else:
+        print("Restoring")
+        graph = tf.get_default_graph()
+        saver = tf.train.import_meta_graph(checkpoint + '.meta')
+        saver.restore(sess, checkpoint)
 
+        loss = graph.get_tensor_by_name('loss:0')
+        
+        test_loss = sess.run(loss, feed_dict={'inputs:0': test[0], 'targets:0':test[1]})
+        print("Test Loss = {:0.4f}".format(test_loss))
 
 
