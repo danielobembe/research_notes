@@ -1,0 +1,27 @@
+Commands:
+
+docker pull
+docker images
+docker run <image_name>
+    docker run <image_name> <command>
+    docker run -it <image_name> sh 
+    docker run --rm <image_name>            #removes container after running image and exiting
+docker ps 
+    docker ps -a
+docker rm <container_id>
+    docker rm $(docker ps -a -q -f status=exited)
+    docker container prune
+
+Examples:
+run detached, publish ports: $ docker run -d -P --name static-site prakhar1989/static-site
+    docker port static-site
+    docker-machine ip default
+    or:
+    docker run -p 8888:80 prakhar1989/static-site
+    docker stop static-site
+    or:
+    docker run -p 8888:5000 danielobembe/catnip
+    (8888 on local)
+
+Note on images:
+Types of images: Official Images, User images
