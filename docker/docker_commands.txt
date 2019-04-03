@@ -2,18 +2,26 @@ Commands:
 
 docker pull
 docker images
+    docker rmi <imageID> <- remove image
 docker run <image_name>
     docker run <image_name> <command>
     docker run -it <image_name> sh 
     docker run --rm <image_name>            #removes container after running image and exiting
+docker stop
+    docker stop 799b0540c551
 docker ps 
     docker ps -a
 docker rm <container_id>
     docker rm $(docker ps -a -q -f status=exited)
     docker container prune
-
+docker search
+    e.g:
+    docker search elasticsearch
+docker container ls
+docker container logs <name/id>
 Examples:
-run detached, publish ports: $ docker run -d -P --name static-site prakhar1989/static-site
+run detached, publish ports: 
+    $ docker run -d -P --name static-site prakhar1989/static-site
     docker port static-site
     docker-machine ip default
     or:
@@ -22,6 +30,9 @@ run detached, publish ports: $ docker run -d -P --name static-site prakhar1989/s
     or:
     docker run -p 8888:5000 danielobembe/catnip
     (8888 on local)
+run detached, give name
+    $ docker run -d --name es -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:6.3.2
+
 
 Note on images:
 Types of images: Official Images, User images

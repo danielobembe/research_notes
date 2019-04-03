@@ -36,7 +36,7 @@ with tf.Session() as sess:
         sess, 
         [tf.saved_model.tag_constants.SERVING],
         signature_def_map = {
-            tf.saved_model.signature_constants.DEFAULT_SERVING_SIGNATURE_DEF_KEY: signature_definiation
+            tf.saved_model.signature_constants.DEFAULT_SERVING_SIGNATURE_DEF_KEY: signature_definition
         }
     )
 
