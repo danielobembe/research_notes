@@ -1,6 +1,6 @@
 import numpy as np 
 from predict_client.prod_client import ProdClient 
-from flask import Flask 
+from flask import Flask, render_template, url_for
 from flask import request 
 from flask import jsonify
 
@@ -23,7 +23,7 @@ def get_prediction_from_model(data):
 
 @app.route("/")
 def index():
-    return "Hello world."
+    return render_template("index.html")
 
 @app.route("/prediction", methods=['POST'])
 def get_prediction():
