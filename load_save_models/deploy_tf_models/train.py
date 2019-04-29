@@ -1,3 +1,4 @@
+# reference: https://towardsdatascience.com/deploy-tensorflow-models-9813b5a705d5
 import tensorflow as tf
 import numpy as np
 import os, sys

@@ -36,7 +36,6 @@ xplaceholder = tf.placeholder('float', [None, n_features])  #(batch_size * n_fea
 yplaceholder = tf.placeholder('float')                      #(batch_size)
 
 def recurrent_neural_network_model():
-
     layer = {
         'weights': tf.Variable(tf.random_normal([n_units, n_classes])),
         'bias': tf.Variable(tf.random_normal([n_classes]))
